@@ -1,0 +1,8 @@
+ayuda - Ayuda
+dado - Tirar dado
+habilidad -  Habilidad
+habilidades - Habilidades
+help - Ayuda
+roll - Tirar dado
+skill - Habilidad
+skills - Habilidades
