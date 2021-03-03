@@ -14,13 +14,10 @@ class TelegramBot {
     public $commands;
     
     public function __construct(){
-        if(defined('DEBUG') && DEBUG === true){
-            ini_set('display_errors',1);
-        }
 
     }
     
-    public static function singleton(){
+    /*public static function singleton(){
         if (!isset(self::$instance)) {
             $c = __CLASS__;
             self::$instance = new $c;
@@ -28,7 +25,7 @@ class TelegramBot {
             self::$instance->commands = \TelegramBotAPI\providers\commandsServiceProvider::init(self::$instance);
         }
         return self::$instance;
-    }
+    }*/
     
     public function init(){
         global $_ITE;
@@ -36,9 +33,9 @@ class TelegramBot {
         $this->raw_response = file_get_contents('php://input');
         $this->response = json_decode($this->raw_response, true);
         
-        if(!isset($_ITE->bdd->select('rol_users',"user_id = '".$this->response["message"]["from"]["id"]."'")[0]['user_id'])){
+        /*if(!isset($_ITE->bdd->select('rol_users',"user_id = '".$this->response["message"]["from"]["id"]."'")[0]['user_id'])){
             $this->newUser();
-        }
+        }*/
         
         $aux = explode(' ', substr($this->response["message"]["text"], 1));
         if (count($aux) <= 2) {
@@ -76,7 +73,7 @@ class TelegramBot {
                     
                     break;
                 default:
-                    $this->reply($this->response["message"]["chat"]["id"],"Hola Caracola v.2 (Fran aún no ha terminado esto... que tío...)");
+                    $this->reply($this->response["message"]["chat"]["id"],"Pendiente de hacer");
             }
         }
     }
