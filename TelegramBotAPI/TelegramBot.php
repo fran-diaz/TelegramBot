@@ -31,7 +31,7 @@ class TelegramBot {
         global $_ITE;
         
         $this->raw_response = file_get_contents('php://input');
-        file_put_contents('log.txt', date('Y-m-d H:i:s').' - '.$this->raw_response,FILE_APPEND);
+        file_put_contents('request-log.txt', date('Y-m-d H:i:s').' - '.$this->raw_response,FILE_APPEND);
         $this->response = json_decode($this->raw_response, true);
 
         
@@ -51,8 +51,8 @@ class TelegramBot {
                     $this->reply($this->response["message"]["chat"]["id"],"Comando info");
                     break;
                 case 'help':
-                    $this->commands->help->reply();
-                    
+                    //$this->commands->help->reply();
+                    $this->reply($this->response["message"]["chat"]["id"],"Comando info");
                     break;
                 default:
                     $this->reply($this->response["message"]["chat"]["id"],"Pendiente de hacer");
@@ -89,12 +89,14 @@ class TelegramBot {
         var_dump($chatid,$reply,$replytomsgid);
         $buffer = ob_get_contents();
         ob_end_clean();
-        file_put_contents('temp-dev.txt', $buffer);
+
+        file_put_contents('reply-log.txt', date('Y-m-d H:i:s').' - '.$buffer,FILE_APPEND);
+
         $sendto = API_URL . "sendmessage?parse_mode=HTML&chat_id=" . $chatid . "&text=" . urlencode($reply);
         if($replytomsgid !== false){
             $sendto .= '&reply_to_message_id='.$this->response["message"]["message_id"];
         }
-        file_get_contents($sendto);
+        return file_get_contents($sendto);
     }
     
     public function __destruct() {
