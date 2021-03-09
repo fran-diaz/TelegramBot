@@ -83,7 +83,11 @@ class TelegramBot {
     }
     
     public function reply($chatid,$reply,$replytomsgid = false){
-        file_put_contents('temp-dev.txt', print_r($this->response, TRUE));
+        ob_start();
+        var_dump($chatid,$reply,$replytomsgid);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        file_put_contents('temp-dev.txt', $buffer);
         $sendto = API_URL . "sendmessage?parse_mode=HTML&chat_id=" . $chatid . "&text=" . urlencode($reply);
         if($replytomsgid !== false){
             $sendto .= '&reply_to_message_id='.$this->response["message"]["message_id"];
