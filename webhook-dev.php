@@ -14,4 +14,4 @@ require('TelegramBotAPI/TelegramBot.php');
 
 //$bot = TelegramBotAPI\providers\serviceProvider::init();
 $bot = new TelegramBot();
-$bot->init();
+$bot -> init();

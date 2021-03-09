@@ -40,34 +40,14 @@ class TelegramBot {
         $aux = explode(' ', substr($this->response["message"]["text"], 1));
         if (count($aux) <= 2) {
             switch ($aux[0]) {
-                case 'roll':
-                    if(isset($aux[1])){
-                        $this->commands->roll->reply($aux[1]);
+                case 'info':
+                    /*if(isset($aux[1])){
+                        $this->commands->info->reply($aux[1]);
                     }else{
-                        $this->commands->roll->reply();
-                    }
-                    
+                        $this->commands->info->reply();
+                    }*/
+                    $this->reply($this->response["message"]["chat"]["id"],"Comando info");
                     break;
-                case 'dado':
-                    if(isset($aux[1])){
-                        $this->commands->roll->reply($aux[1]);
-                    }else{
-                        $this->commands->roll->reply();
-                    }
-                case 'skills':
-                    if(isset($aux[1])){
-                        $this->commands->skills->reply($aux[1]);
-                    }else{
-                        $this->commands->skills->reply();
-                    }
-                    
-                    break;
-                case 'habilidades':
-                    if(isset($aux[1])){
-                        $this->commands->skills->reply($aux[1]);
-                    }else{
-                        $this->commands->skills->reply();
-                    }
                 case 'help':
                     $this->commands->help->reply();
                     
