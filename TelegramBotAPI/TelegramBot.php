@@ -31,7 +31,9 @@ class TelegramBot {
         global $_ITE;
         
         $this->raw_response = file_get_contents('php://input');
+        file_put_contents('log.txt', date('Y-m-d H:i:s').' - '.$this->raw_response,FILE_APPEND);
         $this->response = json_decode($this->raw_response, true);
+
         
         /*if(!isset($_ITE->bdd->select('rol_users',"user_id = '".$this->response["message"]["from"]["id"]."'")[0]['user_id'])){
             $this->newUser();
