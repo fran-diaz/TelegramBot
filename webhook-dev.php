@@ -1,6 +1,6 @@
 <?php
 
-//use TelegramBot\TelegramBot;
+use TelegramBot\TelegramBot;
 
 require('config/development.php');
 require('TelegramBotAPI/TelegramBot.php');
