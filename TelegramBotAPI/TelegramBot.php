@@ -14,52 +14,82 @@ class TelegramBot {
     public $commands;
     
     public function __construct(){
-
+        
     }
-    
-    /*public static function singleton(){
-        if (!isset(self::$instance)) {
-            $c = __CLASS__;
-            self::$instance = new $c;
-            
-            self::$instance->commands = \TelegramBotAPI\providers\commandsServiceProvider::init(self::$instance);
-        }
-        return self::$instance;
-    }*/
-    
-    public function init(){
-        global $_ITE;
-        
-        $this->raw_response = file_get_contents('php://input');
-        file_put_contents('request-log.txt', date('Y-m-d H:i:s').' - '.$this->raw_response,FILE_APPEND);
-        $this->response = json_decode($this->raw_response, true);
 
-        
-        /*if(!isset($_ITE->bdd->select('rol_users',"user_id = '".$this->response["message"]["from"]["id"]."'")[0]['user_id'])){
-            $this->newUser();
-        }*/
-        
-        $aux = explode(' ', substr($this->response["message"]["text"], 1));
-        if (count($aux) <= 2) {
-            switch ($aux[0]) {
-                case 'info':
-                    /*if(isset($aux[1])){
-                        $this->commands->info->reply($aux[1]);
-                    }else{
-                        $this->commands->info->reply();
-                    }*/
-                    $this->reply($this->response["message"]["chat"]["id"],"Comando info");
-                    break;
-                case 'help':
-                    //$this->commands->help->reply();
-                    $this->reply($this->response["message"]["chat"]["id"],"Comando info");
-                    break;
-                default:
-                    $this->reply($this->response["message"]["chat"]["id"],"Pendiente de hacer");
+    public function init( $mode ){
+        if( $mode === 'webhook' ){
+            $this -> parse_input();
+        }
+    }
+
+    private function parse_input(){
+        $this -> raw_input = file_get_contents( 'php://input' );
+        $this -> input = json_decode( $this -> raw_input, true );
+        $this -> log( 'request', $this -> raw_input );
+
+        $chat_id = $this -> input["message"]["chat"]["id"];
+        $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
+        switch ( $command[0] ) {
+            case 'info':
+                /*if(isset($aux[1])){
+                    $this->commands->info->reply($aux[1]);
+                }else{
+                    $this->commands->info->reply();
+                }*/
+                $this -> send_message( $chat_id, "Comando info" );
+                break;
+            case 'help':
+                //$this->commands->help->reply();
+                $this -> send_message( $chat_id, "Comando help" );
+                break;
+            default:
+                $this -> send_message( $chat_id, "Comando desconocido" );
+        }
+    }
+
+    private function rest( string $method, array $json ) {
+        $ch = curl_init();
+        $result = null;
+
+        curl_setopt( $ch, CURLOPT_URL, API_URL . '/' . $method ); 
+        try {
+            $data_string = json_encode( $json );
+            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+            curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, "POST" );
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen( $data_string ) 
+            ]);
+
+            $result = json_decode( curl_exec( $ch ), true );
+            if( $result['ok'] !== TRUE ) {
+                $result = null;
             }
+        } catch(Exception $e) {
+            $this -> log( 'curl-error', $e -> getMessage(),  );
         }
+
+        curl_close($ch);
+        return $result;
     }
     
+    public function send_message( $chat_id, $text, $msg_id = false ){
+        $data = [
+            'chat_id' => $chat_id,
+            'parse_mode' => 'HTML',
+            'text' => $text,
+        ] );
+
+        if( $msg_id !== false ){
+            $data['reply_to_message_id'] = $msg_id;
+        }
+
+        return $this -> rest( 'sendMessage', $data );
+    }
+
     public function newUser(){
         global $_ITE;
         
@@ -83,25 +113,15 @@ class TelegramBot {
             
         $_ITE->bdd->insert('rol_users',$fields,$values);
     }
-    
-    public function reply($chatid,$reply,$replytomsgid = false){
-        ob_start();
-        var_dump($chatid,$reply,$replytomsgid);
-        $buffer = ob_get_contents();
-        ob_end_clean();
 
-        file_put_contents('reply-log.txt', date('Y-m-d H:i:s').' - '.$buffer,FILE_APPEND);
-
-        $sendto = API_URL . "sendmessage?parse_mode=HTML&chat_id=" . $chatid . "&text=" . urlencode($reply);
-        if($replytomsgid !== false){
-            $sendto .= '&reply_to_message_id='.$this->response["message"]["message_id"];
-        }
-        return file_get_contents($sendto);
+    private function log( string $file, string $msg ){
+        $username = ( ! empty( $this -> input["message"]["from"]["first_name"] ) ) ? $this -> input["message"]["from"]["first_name"] : '';
+        return file_put_contents( $file.'-log.txt', date( 'd-m-Y H:i:s' ) . ' - ' . $username . ' - ' . $msg ."\n", FILE_APPEND );
     }
     
     public function __destruct() {
-        if(defined('DEBUG') && DEBUG === true){
-            file_put_contents('temp-dev.txt', print_r($this->response, TRUE));
+        if( defined( 'DEBUG' ) && DEBUG === true ){
+            //file_put_contents('temp-dev.txt', print_r($this->response, TRUE));
         }
     }
 }
