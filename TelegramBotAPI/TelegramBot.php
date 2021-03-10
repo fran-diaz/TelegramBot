@@ -47,7 +47,6 @@ class TelegramBot {
         $ch = curl_init();
         $result = null;
 
-        $this -> log( 'sent', API_URL . $method );
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
             $data_string = json_encode( $json );
@@ -62,10 +61,7 @@ class TelegramBot {
                 'Content-Length: ' . strlen( $data_string ) 
             ]);
 
-            $raw_result = curl_exec( $ch );
-            $result = json_decode( $raw_result, true );
-            $this -> log( 'sent', $raw_result );
-            $this -> log( 'sent', var_export(curl_getinfo($ch),true) );
+            $result = json_decode( curl_exec( $ch ), true );
             if( $result['ok'] !== TRUE ) {
                 $result = null;
             }
@@ -87,9 +83,8 @@ class TelegramBot {
         if( $msg_id !== false ){
             $data['reply_to_message_id'] = $msg_id;
         }
-        $this -> log( 'sent', json_encode( $data ) );
+
         $result = $this -> rest( 'sendMessage', $data );
-        $this -> log( 'sent', json_encode( $result ) );
         return $result;
     }
 
