@@ -62,8 +62,9 @@ class TelegramBot {
                 'Content-Length: ' . strlen( $data_string ) 
             ]);*/
 
-            $result = json_decode( curl_exec( $ch ), true );
-            $this -> log( 'sent', $result );
+            $raw_result = curl_exec( $ch );
+            $result = json_decode( $raw_result, true );
+            $this -> log( 'sent', $raw_result );
             if( $result['ok'] !== TRUE ) {
                 $result = null;
             }
