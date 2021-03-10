@@ -1,4 +1,5 @@
 <?php
+require('../../app/kernel/functions.php');
 require('config/development.php');
 require('TelegramBotAPI/TelegramBot.php');
 
