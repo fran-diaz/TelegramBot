@@ -32,14 +32,14 @@ class TelegramBot {
         $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
         switch ( $command[0] ) {
             case 'info':
-                $this -> send_message( $chat_id, "Comando info" );
+                $this -> sendMessage( $chat_id, "Comando info" );
                 break;
             case 'help':
                 //$this->commands->help->reply();
-                $this -> send_message( $chat_id, "Comando help" );
+                $this -> sendMessage( $chat_id, "Comando help" );
                 break;
             default:
-                $this -> send_message( $chat_id, "Comando desconocido: " . $this -> input["message"]["text"] );
+                $this -> sendMessage( $chat_id, "Comando desconocido: " . $this -> input["message"]["text"] );
         }
     }
 
@@ -51,14 +51,16 @@ class TelegramBot {
         curl_setopt( $ch, CURLOPT_URL, API_URL . '/' . $method ); 
         try {
             $data_string = json_encode( $json );
-            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-            curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, "POST" );
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
+            curl_setopt( $ch, CURLOPT_HEADER, false );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+            curl_setopt( $ch, CURLOPT_POST, true );
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
+            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+            
+            /*curl_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen( $data_string ) 
-            ]);
+            ]);*/
 
             $result = json_decode( curl_exec( $ch ), true );
             $this -> log( 'sent', $result );
@@ -73,7 +75,7 @@ class TelegramBot {
         return $result;
     }
     
-    public function send_message( $chat_id, $text, $msg_id = false ){
+    public function sendMessage( $chat_id, $text, $msg_id = false ){
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
