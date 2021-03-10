@@ -64,6 +64,7 @@ class TelegramBot {
 
             $raw_result = curl_exec( $ch );
             $result = json_decode( $raw_result, true );
+            $this -> log( 'sent', $raw_result );
             $this -> log( 'sent', var_export(curl_getinfo($ch),true) );
             if( $result['ok'] !== TRUE ) {
                 $result = null;
