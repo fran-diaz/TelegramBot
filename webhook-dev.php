@@ -20,7 +20,7 @@ $db = new Medoo([
     'password' => DBPASS
 ]);
 
-var_dump($db -> info();
+var_dump($db -> info());
 
 $buffer = ob_get_contents();
 ob_end_clean();
