@@ -39,7 +39,7 @@ class TelegramBot {
                 $this -> send_message( $chat_id, "Comando help" );
                 break;
             default:
-                $this -> send_message( $chat_id, "Comando desconocido" );
+                $this -> send_message( $chat_id, "Comando desconocido: " . $this -> input["message"]["text"] );
         }
     }
 
@@ -47,7 +47,7 @@ class TelegramBot {
         $ch = curl_init();
         $result = null;
 
-        $this -> log( 'sent', API_URL . '/' . $method );
+        $this -> log( 'sent', API_URL . $method );
         curl_setopt( $ch, CURLOPT_URL, API_URL . '/' . $method ); 
         try {
             $data_string = json_encode( $json );
