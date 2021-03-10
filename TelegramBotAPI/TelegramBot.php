@@ -18,6 +18,7 @@ class TelegramBot {
     public $response;
     public $commands;
     private $db;
+
     
     public function __construct(){
         
@@ -31,6 +32,22 @@ class TelegramBot {
             'username' => DBUSER,
             'password' => DBPASS
         ]);
+
+        // Registro los nuevos usuarios
+        $aux = $this -> db -> query("SHOW TABLES LIKE 'telegram_bot__users'") -> fetchAll();
+        if( empty( $aux ) ){
+            $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `telegram_bot__users` ( '."
+                `telegram_bot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
+                `user` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
+                `chat_id` int(11) unsigned NOT NULL,
+                PRIMARY KEY (`telegram_bot__users_id`)
+                ".' ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;SET FOREIGN_KEY_CHECKS=1;') -> fetchAll();
+        }
+
+        $this -> db -> insert( 'telegram_bot__users', [
+            'user' => $this -> input["message"]["chat"]["first_name"] , 
+            'chat_id' => $this -> input["message"]["chat"]["id"]
+        ] );
 
         if( $mode === 'webhook' ){
             $this -> parse_input();
