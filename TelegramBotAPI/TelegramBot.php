@@ -7,8 +7,8 @@
 
 namespace TelegramBotAPI;
 
-require('../../../app/config/db.php');
-require('../../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
+require('../../app/config/db.php');
+require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
 
 use Medoo\Medoo;
 
