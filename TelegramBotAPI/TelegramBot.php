@@ -47,6 +47,7 @@ class TelegramBot {
         $ch = curl_init();
         $result = null;
 
+        $this -> log( 'sent', API_URL . '/' . $method );
         curl_setopt( $ch, CURLOPT_URL, API_URL . '/' . $method ); 
         try {
             $data_string = json_encode( $json );
