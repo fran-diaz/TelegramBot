@@ -1,23 +1,39 @@
 <?php
-namespace TelegramBotAPI;
-
 /**
  * Description of TelegramBot
  *
  * @author Fran Díaz <fran.diaz.gonzalez@gmail.com>
  */
 
+namespace TelegramBotAPI;
+
+require('../../../app/config/db.php');
+require('../../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
+
+use Medoo\Medoo;
+
 class TelegramBot {
     private static $instance;
     private $raw_response;
     public $response;
     public $commands;
+    private $db;
     
     public function __construct(){
         
     }
 
     public function init( $mode ){
+        $this -> db = new Medoo([
+            'database_type' => 'mysql',
+            'database_name' => DB,
+            'server' => DBSERVER,
+            'username' => DBUSER,
+            'password' => DBPASS
+        ]);
+
+        $this -> log('db',$this -> db -> info()['dsn']);
+
         if( $mode === 'webhook' ){
             $this -> parse_input();
         }
