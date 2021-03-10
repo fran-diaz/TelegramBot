@@ -60,6 +60,7 @@ class TelegramBot {
             ]);
 
             $result = json_decode( curl_exec( $ch ), true );
+            $this -> log( 'sent', $result );
             if( $result['ok'] !== TRUE ) {
                 $result = null;
             }
