@@ -28,7 +28,7 @@ class TelegramBot {
         $this -> input = json_decode( $this -> raw_input, true );
         $this -> log( 'request', $this -> raw_input );
 
-        $chat_id = $this -> input["message"]["chat"]["first_name"];
+        $chat_id = '@'.$this -> input["message"]["chat"]["first_name"];
         $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
         switch ( $command[0] ) {
             case 'info':
