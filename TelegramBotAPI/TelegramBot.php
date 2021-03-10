@@ -62,9 +62,9 @@ class TelegramBot {
             ]);
 
             $result = json_decode( curl_exec( $ch ), true );
-            if( $result['ok'] !== TRUE ) {
+            /*if( $result['ok'] !== TRUE ) {
                 $result = null;
-            }
+            }*/
         } catch(Exception $e) {
             $this -> log( 'curl-error', $e -> getMessage(),  );
         }
@@ -83,7 +83,7 @@ class TelegramBot {
         if( $msg_id !== false ){
             $data['reply_to_message_id'] = $msg_id;
         }
-
+        $this -> log( 'sent', json_encode( $data ) );
         $result = $this -> rest( 'sendMessage', $data );
         return $result;
     }
