@@ -1,16 +1,27 @@
 <?php
 require('config/development.php');
 require('TelegramBotAPI/TelegramBot.php');
+require('../../app/config/db.php');
+require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
 
 use TelegramBotAPI\TelegramBot;
+use Medoo\Medoo;
 
 $bot = new TelegramBot();
 $bot -> init( 'webhook' );
 
 ob_start();
-require('../../app/config/db.php');
-var_dump(defined('DBSERVER'));
-var_dump(get_defined_constants(true)['user'],$_ITEC);
+
+$db = new Medoo([
+    'database_type' => 'mysql',
+    'database_name' => DB,
+    'server' => DBSERVER,
+    'username' => DBUSER,
+    'password' => DBPASS
+]);
+
+var_dump($db -> info();
+
 $buffer = ob_get_contents();
 ob_end_clean();
 
