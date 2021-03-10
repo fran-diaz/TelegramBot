@@ -32,8 +32,6 @@ class TelegramBot {
             'password' => DBPASS
         ]);
 
-        $this -> log('db',$this -> db -> info()['dsn']);
-
         if( $mode === 'webhook' ){
             $this -> parse_input();
         }
