@@ -8,7 +8,8 @@ $bot = new TelegramBot();
 $bot -> init( 'webhook' );
 
 ob_start();
-var_dump($_SESSION,$_ITE);
+require('../../app/config/db.php');
+var_dump(defined(DBSERVER));
 $buffer = ob_get_contents();
 ob_end_clean();
 
