@@ -32,11 +32,6 @@ class TelegramBot {
         $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
         switch ( $command[0] ) {
             case 'info':
-                /*if(isset($aux[1])){
-                    $this->commands->info->reply($aux[1]);
-                }else{
-                    $this->commands->info->reply();
-                }*/
                 $this -> send_message( $chat_id, "Comando info" );
                 break;
             case 'help':
@@ -81,7 +76,7 @@ class TelegramBot {
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
             'text' => $text,
-        ] );
+        ];
 
         if( $msg_id !== false ){
             $data['reply_to_message_id'] = $msg_id;
