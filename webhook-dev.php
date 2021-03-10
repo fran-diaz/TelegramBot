@@ -9,7 +9,7 @@ $bot -> init( 'webhook' );
 
 ob_start();
 require('../../app/config/db.php');
-var_dump(getcwd(),defined(DBSERVER));
+var_dump(getcwd(),$_ITEC);
 $buffer = ob_get_contents();
 ob_end_clean();
 
