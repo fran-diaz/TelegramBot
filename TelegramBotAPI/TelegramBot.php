@@ -81,8 +81,10 @@ class TelegramBot {
         if( $msg_id !== false ){
             $data['reply_to_message_id'] = $msg_id;
         }
-
-        return $this -> rest( 'sendMessage', $data );
+        $this -> log( 'sent', json_encode( $data ) );
+        $result = $this -> rest( 'sendMessage', $data );
+        $this -> log( 'sent', json_encode( $result ) );
+        return $result;
     }
 
     public function newUser(){
