@@ -1,55 +1,31 @@
 <?php
-/**
- * Description of TelegramBot
- *
- * @author Fran Díaz <fran.diaz.gonzalez@gmail.com>
- */
-
 namespace TelegramBotAPI;
 
-require('../../app/config/db.php');
-require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
-
-use Medoo\Medoo;
-
 class TelegramBot {
-    private static $instance;
-    private $raw_response;
-    public $response;
-    public $commands;
-    private $db;
+    use Medoo\Medoo;
+    use TelegramBotAPI\commands\help;
+    use TelegramBotAPI\commands\info;
+    use TelegramBotAPI\methods\new_user;
+    use TelegramBotAPI\methods\sendMessage;
 
+    private $raw_input;
+    private $input;
+    private $db;
     
     public function __construct(){
         
     }
 
-    public function init( $mode ){
-        $this -> db = new Medoo([
-            'database_type' => 'mysql',
-            'database_name' => DB,
-            'server' => DBSERVER,
-            'username' => DBUSER,
-            'password' => DBPASS
-        ]);
+    public function init( $mode ) {
+        if( $mode === 'webhook' ) {
+            $this -> db = new Medoo([
+                'database_type' => 'mysql',
+                'database_name' => DB,
+                'server' => DBSERVER,
+                'username' => DBUSER,
+                'password' => DBPASS
+            ]);
 
-        // Registro los nuevos usuarios
-        $aux = $this -> db -> query("SHOW TABLES LIKE 'telegram_bot__users'") -> fetchAll();
-        if( empty( $aux ) ){
-            $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `telegram_bot__users` ( '."
-                `telegram_bot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
-                `user` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
-                `chat_id` int(11) unsigned NOT NULL,
-                PRIMARY KEY (`telegram_bot__users_id`)
-                ".' ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;SET FOREIGN_KEY_CHECKS=1;') -> fetchAll();
-        }
-
-        $this -> db -> insert( 'telegram_bot__users', [
-            'user' => $this -> input["message"]["chat"]["first_name"] , 
-            'chat_id' => $this -> input["message"]["chat"]["id"]
-        ] );
-
-        if( $mode === 'webhook' ){
             $this -> parse_input();
         }
     }
@@ -103,45 +79,8 @@ class TelegramBot {
         curl_close($ch);
         return $result;
     }
-    
-    public function sendMessage( $chat_id, $text, $msg_id = false ){
-        $data = [
-            'chat_id' => $chat_id,
-            'parse_mode' => 'HTML',
-            'text' => $text,
-        ];
 
-        if( $msg_id !== false ){
-            $data['reply_to_message_id'] = $msg_id;
-        }
-        $this -> log( 'sent', json_encode( $data ) );
-        $result = $this -> rest( 'sendMessage', $data );
-        return $result;
-    }
-
-    public function newUser(){
-        global $_ITE;
-        
-        $fields = [];
-        $values = [];
-        
-        if(isset($this->response["message"]["from"]["id"])){
-            $fields[] = 'user_id';
-            $values[] = $this->response["message"]["from"]["id"];
-        }
-        
-        if(isset($this->response["message"]["from"]["first_name"])){
-            $fields[] = 'first_name';
-            $values[] = $this->response["message"]["from"]["first_name"];
-        }
-        
-        if(isset($this->response["message"]["from"]["username"])){
-            $fields[] = 'username';
-            $values[] = $this->response["message"]["from"]["username"];
-        }
-            
-        $_ITE->bdd->insert('rol_users',$fields,$values);
-    }
+   
 
     private function log( string $file, string $msg ){
         $username = ( ! empty( $this -> input["message"]["from"]["first_name"] ) ) ? $this -> input["message"]["from"]["first_name"] : '';
