@@ -11,7 +11,6 @@ foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
 	}
 }
 
-require('TelegramBotAPI/TelegramBot.php');
 
 
 ob_start();
@@ -25,6 +24,8 @@ $buffer = ob_get_contents();
 ob_end_clean();
 
 file_put_contents( 'prueba-log.txt',  $buffer ."\n", FILE_APPEND );
+
+require('TelegramBotAPI/TelegramBot.php');
 
 // Bot initializing
 use TelegramBotAPI\TelegramBot;
