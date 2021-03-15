@@ -6,9 +6,12 @@ require('config/development.php');
 
 // Required files
 foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
-	require( $filename );
+	if( $filename !== 'TelegramBot.php' ){
+		require( $filename );
+	}
 }
 
+require('TelegramBotAPI/TelegramBot.php');
 
 
 ob_start();
