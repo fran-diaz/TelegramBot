@@ -2,7 +2,6 @@
 namespace TelegramBotAPI;
 
 class TelegramBot {
-    use \Medoo\Medoo;
     use commands\help;
     use commands\info;
     use methods\new_user;
@@ -18,7 +17,7 @@ class TelegramBot {
 
     public function init( $mode ) {
         if( $mode === 'webhook' ) {
-            $this -> db = new Medoo([
+            $this -> db = new \Medoo\Medoo([
                 'database_type' => 'mysql',
                 'database_name' => DB,
                 'server' => DBSERVER,
