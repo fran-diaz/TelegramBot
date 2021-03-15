@@ -2,11 +2,11 @@
 namespace TelegramBotAPI;
 
 class TelegramBot {
-    use Medoo\Medoo;
-    use TelegramBotAPI\commands\help;
-    use TelegramBotAPI\commands\info;
-    use TelegramBotAPI\methods\new_user;
-    use TelegramBotAPI\methods\sendMessage;
+    use \Medoo\Medoo;
+    use commands\help;
+    use commands\info;
+    use methods\new_user;
+    use methods\sendMessage;
 
     private $raw_input;
     private $input;
