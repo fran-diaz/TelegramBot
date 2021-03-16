@@ -27,6 +27,8 @@ class TelegramBot {
                 'password' => DBPASS
             ]);
 
+            $this log( 'db', $this -> db -> info()['dsn']);
+
             $this -> parse_input();
         }
     }
