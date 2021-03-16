@@ -3,6 +3,7 @@ namespace TelegramBotAPI\methods;
 
 trait sendDocument {
 	public function sendDocument( $document_url, $chat_id = null, $msg_id = null ){
+        var_dump($chat_id);
 		$chat_id = ( is_null($chat_id) && ! empty( $this -> chat_id ) ) ? $this -> chat_id : null;
 		$msg_id = ( is_null($msg_id) && ! empty( $this -> msg_id ) ) ? $this -> msg_id : null;
 
