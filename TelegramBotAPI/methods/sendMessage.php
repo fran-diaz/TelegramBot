@@ -20,7 +20,7 @@ trait sendMessage {
         $result = $this -> rest( 'sendMessage', $data );
         $this -> log( 'sent', json_encode( $data ));
         $this -> log( 'sent', 'message_id: '. $msg_id );
-        $this -> log( 'sent', 'Result: '. $result );
+        $this -> log( 'sent', 'Result: '. json_encode($result) );
         return $result;
     }
 }
