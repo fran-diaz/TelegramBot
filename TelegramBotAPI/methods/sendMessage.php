@@ -14,6 +14,7 @@ trait sendMessage {
 
         if( ! is_null( $msg_id ) ){
             $data['reply_to_message_id'] = $msg_id;
+            $data['allow_sending_without_reply'] = true;
         }
         $this -> log( 'sent', json_encode( $data ).' message_id '. $msg_id );
         $result = $this -> rest( 'sendMessage', $data );
