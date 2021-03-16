@@ -18,7 +18,7 @@ trait new_user {
                 $values['chat_id'] = $this -> input["message"]["from"]["id"];
                 $values['user'] = $this -> input["message"]["from"]["first_name"];
             
-                return $this -> db -> insert( 'TelegramBot__users_id', $values );
+                return $this -> db -> insert( 'TelegramBot__users', $values );
             }
         } else {
             return false;
@@ -27,11 +27,11 @@ trait new_user {
 
     private function check_users_table(){
         if( empty( $this -> db ) ){
-            throw new exception('Base de datos inaccesible');
+            return false;
         }   
 
         // Registro los nuevos usuarios
-        $aux = $this -> db -> query("SHOW TABLES LIKE 'TelegramBot__users_id'") -> fetchAll();
+        $aux = $this -> db -> query("SHOW TABLES LIKE 'TelegramBot__users'") -> fetchAll();
 
         if( empty( $aux ) ) {
             $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `TelegramBot__users` ( '."
