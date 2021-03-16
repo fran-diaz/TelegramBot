@@ -18,9 +18,9 @@ trait sendDocument {
         }
         
         $result = $this -> rest( 'sendDocument', $data );
-        $this -> log( 'sent', json_encode( $data ));
-        $this -> log( 'sent', 'message_id: '. $msg_id );
-        $this -> log( 'sent', 'Result: '. json_encode($result) );
+        $this -> log( 'sent-file', json_encode( $data ));
+        $this -> log( 'sent-file', 'message_id: '. $msg_id );
+        $this -> log( 'sent-file', 'Result: '. json_encode($result) );
         return $result;
     }
 }
