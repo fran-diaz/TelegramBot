@@ -25,10 +25,10 @@ ob_end_clean();
 
 file_put_contents( 'prueba-log.txt',  $buffer ."\n", FILE_APPEND );
 
-require('TelegramBotAPI/TelegramBot.php');
+/*require('TelegramBotAPI/TelegramBot.php');
 
 // Bot initializing
 use TelegramBotAPI\TelegramBot;
 
 $bot = new TelegramBot();
-$bot -> init( 'webhook' );
+$bot -> init( 'webhook' );*/
