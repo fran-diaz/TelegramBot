@@ -13,13 +13,13 @@ trait info {
             $sides = 6;
         }
 
-        $aux_reply = '';
+        $aux_reply = '';    
         for ($i = 0; $i < $dices; $i++) {
             $aux_reply .= rand(1, $sides) . ', ';
         }
         $reply = '@'. $this->container->response["message"]['from']['first_name'].' '.substr($aux_reply,0,-2);*/
-        $reply = 'info';
+        $reply = 'info '.$args;
         
-        $this -> sendMessage( $this -> input['message']['chat']['id'], $reply, $this -> input['message']['message_id'] );
+        $this -> sendMessage( $reply );
     }
 }

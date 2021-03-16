@@ -2,14 +2,14 @@
 namespace TelegramBotAPI\methods;
 
 trait sendMessage {
-	public function sendMessage( $chat_id, $text, $msg_id = false ){
+	public function sendMessage( $text, $chat_id = $this -> chat_id, $msg_id = $this -> msg_id ){
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
             'text' => $text,
         ];
 
-        if( $msg_id !== false ){
+        if( ! is_null( $msg_id ) ){
             $data['reply_to_message_id'] = $msg_id;
         }
         $this -> log( 'sent', json_encode( $data ) );

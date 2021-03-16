@@ -16,6 +16,6 @@ trait help {
         $reply .= "/help - Visualizar de nuevo esta ayuda\n";
         $reply .= "";
 
-        $this -> sendMessage( $this -> input['message']['chat']['id'], $reply, $this -> input['message']['message_id'] );
+        $this -> sendMessage( $reply );
     }
 }
