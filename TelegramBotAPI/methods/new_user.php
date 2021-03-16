@@ -12,13 +12,13 @@ trait new_user {
                 return false;
             }
 
-            if( $this -> db -> has('TelegramBot__users_id',['user' => $this->response["message"]["from"]["first_name"]]) ){
+            if( $this -> db -> has( 'TelegramBot__users_id', ['user' => $this -> input["message"]["from"]["first_name"]] ) ){
                 return true;
             } else {
-                $values['chat_id'] = $this->response["message"]["from"]["id"];
-                $values['user'] = $this->response["message"]["from"]["first_name"];
+                $values['chat_id'] = $this -> input["message"]["from"]["id"];
+                $values['user'] = $this -> input["message"]["from"]["first_name"];
             
-                return $this -> db -> insert('TelegramBot__users_id',$values);
+                return $this -> db -> insert( 'TelegramBot__users_id', $values );
             }
         } else {
             return false;
