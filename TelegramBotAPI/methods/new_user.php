@@ -1,7 +1,7 @@
 <?php
 namespace TelegramBotAPI\methods;
 
-trait newUser(){
+trait new_user{
      public function new_user(){
         global $_ITE;
         
