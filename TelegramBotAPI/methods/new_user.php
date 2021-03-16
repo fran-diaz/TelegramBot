@@ -12,7 +12,7 @@ trait new_user {
                 return false;
             }
 
-            if( $this -> db -> has( 'TelegramBot__users_id', ['user' => $this -> input["message"]["from"]["first_name"]] ) ){
+            if( $this -> db -> has( 'TelegramBot__users', ['user' => $this -> input["message"]["from"]["first_name"]] ) ){
                 return true;
             } else {
                 $values['chat_id'] = $this -> input["message"]["from"]["id"];
@@ -34,8 +34,8 @@ trait new_user {
         $aux = $this -> db -> query("SHOW TABLES LIKE 'TelegramBot__users_id'") -> fetchAll();
 
         if( empty( $aux ) ) {
-            $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `TelegramBot__users_id` ( '."
-                `telegram_bot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
+            $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `TelegramBot__users` ( '."
+                `TelegramBot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
                 `user` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
                 `chat_id` int(11) unsigned NOT NULL,
                 PRIMARY KEY (`telegram_bot__users_id`)

@@ -27,6 +27,21 @@ class TelegramBot {
                 'password' => DBPASS
             ]);
 
+            $aux = $this -> db -> select( 'clients_data','*',["origin" => DOMAIN]);
+            if($aux){
+                $client_data = array();
+                $client_data['database_type'] = $aux[0]['db_type'];
+                $client_data['server'] = $aux[0]['server'];
+                $client_data['username'] = $aux[0]['user'];
+                $client_data['password'] = $aux[0]['pass'];
+                $client_data['database_name'] = $aux[0]['db'];
+                $client_data['port'] = $aux[0]['port'];
+                $client_data['appname'] = 'ITE';
+                $client_data['prefix'] = $aux[0]['table_prefix'];
+
+                $this -> db = new \Medoo\Medoo( $client_data );
+            }
+
             $this -> log( 'db', $this -> db -> info()['dsn']);
 
             $this -> parse_input();
