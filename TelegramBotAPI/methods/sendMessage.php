@@ -1,7 +1,7 @@
 <?php
 namespace TelegramBotAPI\methods;
 
-trait sendMessage(){
+trait sendMessage {
 	public function sendMessage( $chat_id, $text, $msg_id = false ){
         $data = [
             'chat_id' => $chat_id,
