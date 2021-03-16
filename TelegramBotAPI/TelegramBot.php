@@ -6,6 +6,7 @@ class TelegramBot {
     use commands\info;
     use methods\new_user;
     use methods\sendMessage;
+    use methods\sendDocument;
 
     private $raw_input;
     private $input;
