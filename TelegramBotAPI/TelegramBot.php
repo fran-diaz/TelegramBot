@@ -36,6 +36,8 @@ class TelegramBot {
 
         $chat_id = $this -> input["message"]["chat"]["id"];
         $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
+        $msg_id = $this -> input["message"]["message_id"];
+        
         switch ( $command[0] ) {
             case 'info':
                 $this -> sendMessage( $chat_id, "Comando info" );
