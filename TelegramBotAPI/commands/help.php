@@ -6,7 +6,7 @@ namespace TelegramBotAPI\commands;
  *
  * @author Fran Díaz <fran.diaz.gonzalez@gmail.com>
  */
-trait help{
+trait help {
 
     public function help(){
         $reply = "";
