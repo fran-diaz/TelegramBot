@@ -40,7 +40,7 @@ class TelegramBot {
                 $client_data['prefix'] = $aux[0]['table_prefix'];
                 $this -> db = new \Medoo\Medoo( $client_data );
 
-                $aux = $this -> db -> get( 'system__connections', '*', ['system__connections_id' => 1 ]);
+                $aux = $this -> db -> get( 'system__connections', '*', ['system__connections_id' => '1' ]);
                 $this -> db = new \Medoo\Medoo( $aux );
             }
 
