@@ -27,7 +27,7 @@ trait new_user {
 
     private function check_users_table(){
         if( empty( $this -> db ) ){
-            return false;
+            throw new exception('Base de datos inaccesible');
         }   
 
         // Registro los nuevos usuarios
