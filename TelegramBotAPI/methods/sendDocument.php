@@ -16,6 +16,7 @@ trait sendDocument {
             $data['reply_to_message_id'] = $msg_id;
             $data['allow_sending_without_reply'] = true;
         }
+        var_dump($data);
         
         $result = $this -> rest( 'sendDocument', $data );
         $this -> log( 'sent-file', json_encode( $data ));
