@@ -47,8 +47,6 @@ class TelegramBot {
                 $this -> db = new \Medoo\Medoo( $client_data );
             }
 
-            $this -> log( 'db', $this -> db -> info()['dsn']);
-
             $this -> parse_input();
         }
     }
