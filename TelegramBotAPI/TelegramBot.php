@@ -39,9 +39,9 @@ class TelegramBot {
         if( isset( $this -> input["message"] ) ){
             $this -> chat_id = $this -> input["message"]["chat"]["id"];
             $this -> msg_id = $this -> input["message"]["message_id"];
-
             $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
             
+            $this -> new_user();
 
             switch ( $command[0] ) {
                 case 'info':
