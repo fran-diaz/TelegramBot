@@ -4,12 +4,7 @@ require('../../app/config/db.php');
 require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
 require('config/development.php');
 
-// Required files
-foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
-	if( $filename !== 'TelegramBot.php' ){
-		require( $filename );
-	}
-}
+
 
 
 
@@ -25,6 +20,13 @@ ob_end_clean();
 
 file_put_contents( 'prueba-log.txt',  $buffer ."\n", FILE_APPEND );
 
+
+// Required files
+foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
+	if( $filename !== 'TelegramBot.php' ){
+		require( $filename );
+	}
+}
 /*require('TelegramBotAPI/TelegramBot.php');
 
 // Bot initializing
