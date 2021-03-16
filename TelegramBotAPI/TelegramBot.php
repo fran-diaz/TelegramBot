@@ -50,7 +50,7 @@ class TelegramBot {
                 $this -> help();
                 break;
             default:
-                $this -> sendMessage( $chat_id, "Comando desconocido: " . $this -> input["message"]["text"] );
+                $this -> sendMessage("Comando desconocido: " . $this -> input["message"]["text"] );
         }
     }
 
