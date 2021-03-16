@@ -38,7 +38,7 @@ trait new_user {
                 `TelegramBot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
                 `user` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
                 `chat_id` int(11) unsigned NOT NULL,
-                PRIMARY KEY (`telegram_bot__users_id`)
+                PRIMARY KEY (`TelegramBot__users_id`)
                 ".' ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;SET FOREIGN_KEY_CHECKS=1;') -> fetchAll();
         }
 
