@@ -16,8 +16,11 @@ trait sendMessage {
             $data['reply_to_message_id'] = $msg_id;
             $data['allow_sending_without_reply'] = true;
         }
-        $this -> log( 'sent', json_encode( $data ).' message_id '. $msg_id );
+        
         $result = $this -> rest( 'sendMessage', $data );
+        $this -> log( 'sent', json_encode( $data ));
+        $this -> log( 'sent', 'message_id '. $msg_id );
+        $this -> log( 'sent', $return );
         return $result;
     }
 }
