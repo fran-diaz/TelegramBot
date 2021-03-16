@@ -18,7 +18,7 @@ class TelegramBot {
         
     }
 
-    public function init( $mode ) {
+    public function init( $mode = null ) {
         if( $mode === 'webhook' ) {
             $this -> db = new \Medoo\Medoo([
                 'database_type' => 'mysql',
