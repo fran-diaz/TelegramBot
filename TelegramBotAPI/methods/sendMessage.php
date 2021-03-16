@@ -15,7 +15,7 @@ trait sendMessage {
         if( ! is_null( $msg_id ) ){
             $data['reply_to_message_id'] = $msg_id;
         }
-        $this -> log( 'sent', json_encode( $data ) );
+        $this -> log( 'sent', json_encode( $data ).' message_id '. $msg_id );
         $result = $this -> rest( 'sendMessage', $data );
         return $result;
     }
