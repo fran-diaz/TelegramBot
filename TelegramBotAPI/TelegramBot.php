@@ -36,21 +36,23 @@ class TelegramBot {
         $this -> input = json_decode( $this -> raw_input, true );
         $this -> log( 'request', $this -> raw_input );
 
-        $this -> chat_id = $this -> input["message"]["chat"]["id"];
-        $this -> msg_id = $this -> input["message"]["message_id"];
+        if( isset( $this -> input["message"] ) ){
+            $this -> chat_id = $this -> input["message"]["chat"]["id"];
+            $this -> msg_id = $this -> input["message"]["message_id"];
 
-        $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
-        
+            $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
+            
 
-        switch ( $command[0] ) {
-            case 'info':
-                $this -> info();
-                break;
-            case 'help':
-                $this -> help();
-                break;
-            default:
-                $this -> sendMessage("Comando desconocido: " . $this -> input["message"]["text"] );
+            switch ( $command[0] ) {
+                case 'info':
+                    $this -> info();
+                    break;
+                case 'help':
+                    $this -> help();
+                    break;
+                default:
+                    $this -> sendMessage("Comando desconocido: " . $this -> input["message"]["text"] );
+            }
         }
     }
 
