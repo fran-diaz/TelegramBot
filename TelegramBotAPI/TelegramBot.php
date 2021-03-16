@@ -38,8 +38,10 @@ class TelegramBot {
                 $client_data['port'] = $aux[0]['port'];
                 $client_data['appname'] = 'ITE';
                 $client_data['prefix'] = $aux[0]['table_prefix'];
-
                 $this -> db = new \Medoo\Medoo( $client_data );
+
+                $aux = $this -> db -> get( 'system__connections', '*', ['system__connections_id' => 1 ]);
+                $this -> db = new \Medoo\Medoo( $aux );
             }
 
             $this -> log( 'db', $this -> db -> info()['dsn']);
