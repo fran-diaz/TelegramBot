@@ -90,7 +90,7 @@ class TelegramBot {
     private function rest( string $method, array $json ) {
         $ch = curl_init();
         $result = null;
-        
+        $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?'.http_build_query($json)  );
 
         $postdata = http_build_query( $json );
 
@@ -104,9 +104,8 @@ class TelegramBot {
 
         $context  = stream_context_create($opts);
 
-        $result = file_get_contents( API_URL . $method, false, $context );
-        $this -> log( '/home/app1/public_html/resources/rest-result', $result  );
-        return $result;
+
+        return file_get_contents( API_URL . $method, false, $context );
 
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method . '?chat_id='.$json['chat_id'] ); 
         try {
