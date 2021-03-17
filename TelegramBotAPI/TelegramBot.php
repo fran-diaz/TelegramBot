@@ -14,6 +14,9 @@ class TelegramBot {
     use methods\new_user;
     use methods\sendMessage;
     use methods\sendDocument;
+    use methods\sendPhoto;
+    use methods\sendVideo;
+    use methods\sendAudio;
 
     private $raw_input;
     private $input;
