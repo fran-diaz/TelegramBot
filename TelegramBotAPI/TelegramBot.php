@@ -5,6 +5,7 @@ namespace TelegramBotAPI;
 require( 'config/development.php' );
 
 foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
+    file_put_contents( 'prueba-log.txt',  $filename ."\n", FILE_APPEND );
     require( $filename );
 }
 
