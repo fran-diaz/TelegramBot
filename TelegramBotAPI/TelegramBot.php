@@ -2,7 +2,7 @@
 namespace TelegramBotAPI;
 
 // Required files
-require(__DIR__.'../config/development.php');
+require(__DIR__.'/../config/development.php');
 
 foreach ( rglob( __DIR__."/*.php" ) as $filename ) {
     require( $filename );
