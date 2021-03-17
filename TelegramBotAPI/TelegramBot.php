@@ -90,7 +90,7 @@ class TelegramBot {
     private function rest( string $method, array $json ) {
         $ch = curl_init();
         $result = null;
-        $this -> log( '/home/app1/public_html/resources/rest-request', $method .' - '.$json  );
+        $this -> log( '/home/app1/public_html/resources/rest-request', $method .' - '.json_encode($json)  );
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
             $data_string = json_encode( $json );
