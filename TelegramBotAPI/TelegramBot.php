@@ -101,7 +101,7 @@ class TelegramBot {
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             
             curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
+                'Content-Type: multipart/form-data',
                 'Content-Length: ' . strlen( $data_string ) 
             ]);
 
