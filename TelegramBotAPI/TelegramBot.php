@@ -1,6 +1,13 @@
 <?php
 namespace TelegramBotAPI;
 
+// Required files
+require(__DIR__.'../config/development.php');
+
+foreach ( rglob( __DIR__."/*.php" ) as $filename ) {
+    require( $filename );
+}
+
 class TelegramBot {
     use commands\help;
     use commands\info;
