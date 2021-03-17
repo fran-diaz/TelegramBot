@@ -2,8 +2,6 @@
 require('../../app/kernel/functions.php');
 require('../../app/config/db.php');
 require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
-//require('config/development.php');
-
 
 require('TelegramBotAPI/TelegramBot.php');
 
