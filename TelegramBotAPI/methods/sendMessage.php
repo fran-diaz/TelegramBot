@@ -3,8 +3,12 @@ namespace TelegramBotAPI\methods;
 
 trait sendMessage {
 	public function sendMessage( $text, $chat_id = null, $msg_id = null ){
-		$chat_id = ( ! empty( $this -> chat_id ) ) ? $this -> chat_id : null;
-		$msg_id = ( ! empty( $this -> msg_id ) ) ? $this -> msg_id : null;
+		if ( is_null($chat_id) && ! empty( $this -> chat_id ) ){
+            $chat_id = $this -> chat_id;
+        }
+        if ( is_null($msg_id) && ! empty( $this -> msg_id ) ) {
+            $msg_id = $this -> msg_id;
+        }
 
         $data = [
             'chat_id' => $chat_id,
