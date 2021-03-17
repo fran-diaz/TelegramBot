@@ -2,14 +2,9 @@
 require('../../app/kernel/functions.php');
 require('../../app/config/db.php');
 require('../../vendor/fran-diaz/ite/ITE/db/Medoo.php');
-require('config/development.php');
+//require('config/development.php');
 
-// Required files
-foreach ( rglob( "TelegramBotAPI/*.php" ) as $filename ) {
-	if( $filename !== 'TelegramBotAPI/TelegramBot.php' ){
-		require( $filename );
-	}
-}
+
 require('TelegramBotAPI/TelegramBot.php');
 
 // Bot initializing
