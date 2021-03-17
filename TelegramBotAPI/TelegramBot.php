@@ -91,13 +91,13 @@ class TelegramBot {
         $ch = curl_init();
         $result = null;
         $this -> log( '/home/app1/public_html/resources/rest-request', $method .' - '.json_encode($json)  );
-        curl_setopt( $ch, CURLOPT_URL, API_URL . $method . http_build_query($json) ); 
+        curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
             $data_string = json_encode( $json );
             //curl_setopt( $ch, CURLOPT_HEADER, false );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt( $ch, CURLOPT_POST, true );
-            //curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             //curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             
             /*curl_setopt( $ch, CURLOPT_HTTPHEADER, [
