@@ -100,10 +100,9 @@ class TelegramBot {
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             //curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             
-            /*curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen( $data_string ) 
-            ]);*/
+            curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json' 
+            ]);
 
             $result = json_decode( curl_exec( $ch ), true );
             $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
