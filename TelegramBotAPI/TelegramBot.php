@@ -2,10 +2,9 @@
 namespace TelegramBotAPI;
 
 // Required files
-require( 'config/development.php' );
+require(  __DIR__ . '/../config/development.php' );
 
-foreach ( rglob( "TelegramBotAPI/*/*.php" ) as $filename ) {
-    file_put_contents( 'prueba-log.txt',  __DIR__ ."\n", FILE_APPEND );
+foreach ( rglob( __DIR__ . "/*/*.php" ) as $filename ) {
     require( $filename );
 }
 
