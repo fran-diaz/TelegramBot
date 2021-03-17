@@ -94,15 +94,15 @@ class TelegramBot {
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
             $data_string = json_encode( $json );
-            curl_setopt( $ch, CURLOPT_HEADER, false );
+            //curl_setopt( $ch, CURLOPT_HEADER, false );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
-            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+            //curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             
-            curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+           /* curl_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type:multipart/form-data'
-            ]);
+            ]);*/
 
             $result = json_decode( curl_exec( $ch ), true );
             $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
