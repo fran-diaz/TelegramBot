@@ -11,6 +11,7 @@ use TelegramBotAPI\TelegramBot;
 $bot = new TelegramBot();
 $bot -> init( 'webhook' );
 
+http_response_code(200);
 /*
 ob_start();
 
