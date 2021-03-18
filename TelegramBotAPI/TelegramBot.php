@@ -96,7 +96,7 @@ class TelegramBot {
         $this -> log( '/home/app1/public_html/resources/post-data', $postdata  );
 
         $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?'.http_build_query($json)."\n"  );
-        $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?parse_mode='.$json['parse_mode'].'&chat_id='.$json['chat_id'].'&photo='.$json['photo']."\n"  );
+        $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?parse_mode='.$json['parse_mode'].'&chat_id='.$json['chat_id'].'&photo='.urlencode($json['photo'])."\n"  );
 
         return file_get_contents( API_URL . $method . '?'. $postdata);
 
