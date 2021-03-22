@@ -106,6 +106,7 @@ class TelegramBot {
             ]);
 
             $result = json_decode( curl_exec( $ch ), true );
+            $this -> log( '/home/app1/public_html/resources/rest-params', json_encode($json)  );
             $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
         } catch(Exception $e) {
             $this -> log( 'curl-error', $e -> getMessage(),  );
