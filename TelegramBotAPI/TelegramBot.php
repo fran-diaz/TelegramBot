@@ -92,26 +92,26 @@ class TelegramBot {
         $result = null;
         
 
-        $postdata = http_build_query( $json );
+        /*$postdata = http_build_query( $json );
         $this -> log( '/home/app1/public_html/resources/post-data', $postdata  );
 
         $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?'.http_build_query($json)."\n"  );
         $this -> log( '/home/app1/public_html/resources/rest-request', API_URL . $method . '?parse_mode='.$json['parse_mode'].'&chat_id='.$json['chat_id'].'&photo='.urlencode($json['photo'])."\n"  );
 
-        return file_get_contents( API_URL . $method . '?'. $postdata);
+        return file_get_contents( API_URL . $method . '?'. $postdata);*/
 
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method . '?chat_id='.$json['chat_id'] ); 
         try {
             $data_string = json_encode( $json );
-            //curl_setopt( $ch, CURLOPT_HEADER, false );
+            curl_setopt( $ch, CURLOPT_HEADER, false );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
-            //curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+            curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             
-            /*curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+            url_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json' 
-            ]);*/
+            ]);
 
             $result = json_decode( curl_exec( $ch ), true );
             $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
