@@ -93,7 +93,7 @@ class TelegramBot {
 
 
     
-    $sendto = "https://api.telegram.org/bot1689780893:AAHG36iUBXO5EJlhD4PMwzwtgR1Zc98wHE0/sendPhoto?".http_build_query($json);
+    $sendto = API_URL . $method ."?".http_build_query($json);
     return file_get_contents($sendto);
 
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
