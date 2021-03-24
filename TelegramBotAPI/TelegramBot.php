@@ -104,6 +104,20 @@ class TelegramBot {
                 'Content-Type: multipart/form-data', 
             ]);
 
+            if( isset($json['photo'])){
+                /*$fp = fopen(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']), 'rb');
+                if ($fp === false) {
+                    return 'Error encoding file:'.str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']) ;
+                }*/
+
+                //$json['photo'] = $fp;
+                
+                $json['photo'] = new CURLFile(realpath(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo'])));
+            }
+            
+
+        
+
             $result = json_decode( curl_exec( $ch ), true );
             $this -> log( '/home/app1/public_html/resources/rest-params', json_encode($json)  );
             $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
