@@ -105,7 +105,7 @@ class TelegramBot {
             ]);
 
             if( isset($json['photo'])){
-                $fp = fopen(str_replace('https://app.brainhardware.es','',$json['photo']), 'rb');
+                $fp = fopen(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']), 'rb');
                 if ($fp === false) {
                     return 'Error encoding file:'.str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']) ;
                 }
