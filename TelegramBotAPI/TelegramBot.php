@@ -93,13 +93,10 @@ class TelegramBot {
 
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
-            $data_string = $json;
             curl_setopt( $ch, CURLOPT_HEADER, false );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
             curl_setopt( $ch, CURLOPT_POST, true );
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-            
             curl_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: multipart/form-data', 
             ]);
@@ -112,11 +109,13 @@ class TelegramBot {
 
                 //$json['photo'] = $fp;
                 $file = str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']);
-                $this -> log( '/home/app1/public_html/resources/log', var_export($file,true)."\n"  );
+
                 $json['photo'] = curl_file_create($file,mime_content_type($file));
+                $this -> log( '/home/app1/public_html/resources/log', var_export($json['photo'],true)."\n"  );
             }
             
-
+            $data_string = $json;
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
         
 
             $result = json_decode( curl_exec( $ch ), true );
