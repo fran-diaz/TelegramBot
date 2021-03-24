@@ -94,6 +94,7 @@ class TelegramBot {
 
     
     $sendto = API_URL . $method ."?".http_build_query($json);
+    $this -> log( '/home/app1/public_html/resources/log', var_export($sendto,true)."\n"  );
     return file_get_contents($sendto);
 
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
