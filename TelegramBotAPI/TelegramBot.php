@@ -107,7 +107,7 @@ class TelegramBot {
             if( isset($json['photo'])){
                 $fp = fopen(str_replace('https://app.brainhardware.es','',$file), 'rb');
                 if ($fp === false) {
-                    return 'Error encoding file';
+                    return 'Error encoding file:'.str_replace('https://app.brainhardware.es','',$file) ;
                 }
 
                 $json['photo'] = $fp;
