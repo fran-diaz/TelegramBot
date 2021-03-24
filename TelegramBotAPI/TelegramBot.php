@@ -111,8 +111,9 @@ class TelegramBot {
                 }*/
 
                 //$json['photo'] = $fp;
-                
-                $json['photo'] = new \CURLFile(realpath(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo'])));
+                $file = str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']);
+                $this -> log( '/home/app1/public_html/resources/log', var_export($file,true)."\n"  );
+                $json['photo'] = curl_file_create($file,mime_content_type($file));
             }
             
 
