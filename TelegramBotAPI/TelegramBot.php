@@ -98,7 +98,7 @@ class TelegramBot {
             curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
             curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: multipart/form-data', 
+                'Content-Type: application/json', 
             ]);
 
             if( isset($json['photo'])){
@@ -115,7 +115,7 @@ class TelegramBot {
                 $this -> log( '/home/app1/public_html/resources/log', var_export($json['photo'],true)."\n"  );*/
             }
             
-            $data_string = $json;
+            $data_string = json_encode($json);
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
         
 
