@@ -76,7 +76,7 @@ class TelegramBot {
 
             switch ( $command[0] ) {
                 case 'info':
-                    $this -> info();
+                    $this -> info(); 
                     break;
                 case 'help':
                     $this -> help();
@@ -112,7 +112,7 @@ class TelegramBot {
 
                 //$json['photo'] = $fp;
                 
-                $json['photo'] = new CURLFile(realpath(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo'])));
+                $json['photo'] = new \CURLFile(realpath(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo'])));
             }
             
 
