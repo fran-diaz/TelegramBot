@@ -14,8 +14,8 @@ trait info {
             return false;
         }
 
-        $info = $this -> db -> get('_intervenciones','*',['id_intervencion' => $id, 'telegram_usr_id' => $user_info['TelegramBot__users_id']]);
-        trigger_error(var_export($this -> db -> last(),true));
+        $info = $this -> db -> get('_intervenciones','*',['id_intervencion' => $id, 'telegram_user_id' => $user_info['TelegramBot__users_id']]);
+        //trigger_error(var_export($this -> db -> last(),true));
         if( $info ){
             $reply = "";
             $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n";
