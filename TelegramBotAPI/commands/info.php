@@ -2,7 +2,12 @@
 namespace TelegramBotAPI\commands;
 
 trait info {
-    public function info( $args = 1 ){
+    public function info( $args = null ){
+        if( is_null( $args ) ){
+            $this -> sendMessage( 'Tienes que ser más específico.' );
+            return false;
+        }
+
         $user_info = $this -> db -> select('TelegramBot__users','*',['user' => $this -> input["message"]["from"]["first_name"]]);
         if( ! $user_info ){
             $this -> sendMessage( 'No nos consta que estés registrado.' );
