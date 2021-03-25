@@ -15,11 +15,11 @@ trait info {
         }
 
         $info = $this -> db -> get('_intervenciones','*',['id_intervencion' => $id, 'telegram_user_id' => $user_info['TelegramBot__users_id']]);
-        //trigger_error(var_export($this -> db -> last(),true));
+        
         if( $info ){
             $reply = "";
-            $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n";
-            $reply .= "Por hacer...\n";
+            $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n\n";
+            $reply .= "Información por completar...\n";
             $reply .= "";
             $this -> sendMessage( $reply );
         } else {
