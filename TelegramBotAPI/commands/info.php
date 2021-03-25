@@ -21,6 +21,7 @@ trait info {
             $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n";
             $reply .= "Por hacer...\n";
             $reply .= "";
+            $this -> sendMessage( $reply );
         } else {
             $this -> sendMessage( 'No estas autorizado a recibir esta información.' );
             return false;
