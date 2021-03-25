@@ -21,7 +21,6 @@ trait sendPhoto {
             $data['allow_sending_without_reply'] = true;
         }
         
-        
         $result = $this -> rest( 'sendPhoto', $data );
         $this -> log( 'sent-file', json_encode( $data ));
         $this -> log( 'sent-file', 'message_id: '. $msg_id );

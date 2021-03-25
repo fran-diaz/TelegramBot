@@ -88,15 +88,16 @@ class TelegramBot {
     }
 
     private function rest( string $method, array $json ) {
+        $sendto = API_URL . $method ."?".http_build_query($json);
+        $this -> log( __DIR__ . '/../../', var_export($sendto,true)."\n"  );
+        
+        return file_get_contents($sendto);
+
+        /**
+         * OLD METHOD
+         */
         $ch = curl_init();
         $result = null;
-
-
-    
-    $sendto = API_URL . $method ."?".http_build_query($json);
-    $this -> log( '/home/app1/public_html/resources/log', var_export($sendto,true)."\n"  );
-    return file_get_contents($sendto);
-
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
         try {
             curl_setopt( $ch, CURLOPT_HEADER, false );
@@ -106,28 +107,11 @@ class TelegramBot {
             curl_setopt( $ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json', 
             ]);
-
-            if( isset($json['photo'])){
-                /*$fp = fopen(str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']), 'rb');
-                if ($fp === false) {
-                    return 'Error encoding file:'.str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']) ;
-                }*/
-
-                //$json['photo'] = $fp;
-                /*$file = str_replace('https://app.brainhardware.es','/home/app/public_html',$json['photo']);
-
-                $json['photo_file'] = curl_file_create(realpath($file),mime_content_type($file));
-                $json['photo'] = 'attach://photo_file';
-                $this -> log( '/home/app1/public_html/resources/log', var_export($json['photo'],true)."\n"  );*/
-            }
             
             $data_string = json_encode($json);
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
         
-
             $result = json_decode( curl_exec( $ch ), true );
-            $this -> log( '/home/app1/public_html/resources/rest-params', json_encode($json)  );
-            $this -> log( '/home/app1/public_html/resources/rest-result', json_encode($result)  );
         } catch(Exception $e) {
             $this -> log( 'curl-error', $e -> getMessage(),  );
         }
@@ -135,8 +119,6 @@ class TelegramBot {
         curl_close($ch);
         return $result;
     }
-
-   
 
     private function log( string $file, string $msg ){
         $username = ( ! empty( $this -> input["message"]["from"]["first_name"] ) ) ? $this -> input["message"]["from"]["first_name"] : '';
