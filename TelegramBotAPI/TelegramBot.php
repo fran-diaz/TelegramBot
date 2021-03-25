@@ -76,7 +76,7 @@ class TelegramBot {
 
             switch ( $command[0] ) {
                 case 'info':
-                    $this -> info(); 
+                    $this -> info( $command[1] ); 
                     break;
                 case 'help':
                     $this -> help();
@@ -90,7 +90,7 @@ class TelegramBot {
     private function rest( string $method, array $json ) {
         $sendto = API_URL . $method ."?".http_build_query($json);
         $this -> log( __DIR__ . '/../../', var_export($sendto,true)."\n"  );
-        
+
         return file_get_contents($sendto);
 
         /**
