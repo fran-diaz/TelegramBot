@@ -15,7 +15,7 @@ trait info {
         }
 
         $info = $this -> db -> get('_intervenciones','*',['id_intervencion' => $id, 'telegram_usr_id' => $user_info['TelegramBot__users_id']]);
-        if( $interv_info ){
+        if( $info ){
             $reply = "";
             $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n";
             $reply .= "Por hacer...\n";
