@@ -89,7 +89,7 @@ class TelegramBot {
 
     private function rest( string $method, array $json ) {
         $sendto = API_URL . $method ."?".http_build_query($json);
-        $this -> log( __DIR__ . '/../../', var_export($sendto,true)."\n"  );
+        $this -> log( __DIR__ . '/../../sendto', var_export($sendto,true)."\n"  );
 
         return file_get_contents($sendto);
 
