@@ -111,6 +111,7 @@ class TelegramBot {
             
             $data_string = json_encode($json);*/
             $data_string = array( 'chat_id' => $json['chat_id'], 'photo' => new \CURLFile(realpath($json['photo'])));
+            $this -> log( 'data_string', var_export(exec('whoami'),true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export($json['photo'],true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export(realpath($json['photo']),true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export($data_string,true)."\n",  FILE_APPEND );
