@@ -13,7 +13,7 @@ trait sendPhoto {
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
-            'photo' => $photo_url,
+            'photo' => new \CURLFile( realpath( $photo_url ) ),
         ];
 
         if( ! is_null( $msg_id ) ){

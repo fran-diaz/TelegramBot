@@ -13,7 +13,7 @@ trait sendVideo {
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
-            'video' => $video_url,
+            'video' => new \CURLFile( realpath( $video_url ) ),
         ];
 
         if( ! is_null( $msg_id ) ){

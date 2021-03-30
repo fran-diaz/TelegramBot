@@ -13,7 +13,7 @@ trait sendAudio {
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
-            'audio' => $audio_url,
+            'audio' => new \CURLFile( realpath( $audio_url ) ),
         ];
 
         if( ! is_null( $msg_id ) ){

@@ -13,7 +13,7 @@ trait sendDocument {
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'HTML',
-            'document' => $document_url,
+            'document' => new \CURLFile( realpath( $document_url ) ),
         ];
 
         if( ! is_null( $msg_id ) ){
