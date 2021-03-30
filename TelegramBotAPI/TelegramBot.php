@@ -110,7 +110,7 @@ class TelegramBot {
             ]);
             
             $data_string = json_encode($json);*/
-            $data_string = array( 'chat_id' => $json['chatid'], 'photo' => new CURLFile(realpath($json['photo'])));
+            $data_string = array( 'chat_id' => $json['chatid'], 'photo' => new \CURLFile(realpath($json['photo'])));
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
         
