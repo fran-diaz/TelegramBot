@@ -110,21 +110,22 @@ class TelegramBot {
             ]);
             
             $data_string = json_encode($json);*/
-            $data_string = array( 'chat_id' => $json['chatid'], 'photo' => new \CURLFile(realpath($json['photo'])));
+            $data_string = array( 'chat_id' => $json['chat_id'], 'photo' => new \CURLFile(realpath($json['photo'])));
+            $this -> log( 'data_string', $data_string."\n",  FILE_APPEND );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
         
-            $result = json_decode( curl_exec( $ch ), true );
+            $result = curl_exec( $ch );
             $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             if ( $status != 201 ) {
-                $this -> log( 'curl-error', "Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)."\n",  );
+                $this -> log( 'curl-error', "Error: failed with status $status, response $result, curl_error " . curl_error($ch) . ", curl_errno " . curl_errno($ch)."\n", FILE_APPEND  );
             }
         } catch(Exception $e) {
-            $this -> log( 'curl-error', $e -> getMessage(),  );
+            $this -> log( 'curl-error', $e -> getMessage(),  FILE_APPEND );
         }
 
         curl_close($ch);
-        return $result;
+        return json_decode( $result, true );
     }
 
     private function log( string $file, string $msg ){
