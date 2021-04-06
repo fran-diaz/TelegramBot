@@ -14,12 +14,18 @@ trait info {
             return false;
         }
 
-        $info = $this -> db -> get('_intervenciones','*',['id_intervencion' => $id, 'telegram_user_id' => $user_info['TelegramBot__users_id']]);
+        $info = $this -> db -> get('_intervenciones_full','*',['id_intervencion' => $id, 'telegram_user_id' => $user_info['TelegramBot__users_id']]);
         
         if( $info ){
             $reply = "";
-            $reply .= "Intervención número <strong>".$info['id_intervencion']."</strong>, ".$info['estado'].".\n\n";
-            $reply .= "Información por completar...\n";
+            $reply .= "Intervención <strong>".htmlentities($info['id_intervencion'])."</strong>, ".htmlentities($info['tipo_intervencion']).":\n";
+            $reply .= "· Estado: ".htmlentities($info['estado'])."\n";
+            $reply .= "· Iniciada: ".htmlentities($info['fecha_finalizacion']).' '.htmlentities($info['hora_inicio'])."\n";
+            $reply .= "· Finalizada: ".htmlentities($info['fecha_finalizacion']).' '.htmlentities($info['hora_fin'])."\n";
+            $reply .= "· Centro de trabajo: ".htmlentities($info['centro_trabajo']).' (<a href="https://maps.google.com/?q='.urlencode($info['direccion']).'" target="_blank">Dirección</a>)'."\n";
+            $reply .= "· Técnico: ".htmlentities($info['tecnico'])."\n";
+            $reply .= '· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/parte-digital-'.$id.'.pdf">Parte de trabajo</a>'."\n";
+            $reply .= '· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/archivos-'.$id.'.zip">Archivos de la intervención</a>'."\n";
             $reply .= "";
             $this -> sendMessage( $reply );
         } else {
