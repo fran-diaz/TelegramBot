@@ -18,14 +18,14 @@ trait info {
         
         if( $info ){
             $reply = "";
-            $reply .= "Intervención <strong>".htmlentities($info['id_intervencion'])."</strong>, ".htmlentities($info['tipo_intervencion']).":\n";
-            $reply .= "· Estado: ".htmlentities($info['estado'])."\n";
-            $reply .= "· Iniciada: ".htmlentities($info['fecha_finalizacion']).' '.htmlentities($info['hora_inicio'])."\n";
-            $reply .= "· Finalizada: ".htmlentities($info['fecha_finalizacion']).' '.htmlentities($info['hora_fin'])."\n";
-            $reply .= "· Centro de trabajo: ".htmlentities($info['centro_trabajo']).' (<a href="https://maps.google.com/?q='.urlencode($info['direccion']).'" target="_blank">Dirección</a>)'."\n";
-            $reply .= "· Técnico: ".htmlentities($info['tecnico'])."\n";
-            $reply .= '· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/parte-digital-'.$id.'.pdf">Parte de trabajo</a>'."\n";
-            $reply .= '· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/archivos-'.$id.'.zip">Archivos de la intervención</a>'."\n";
+            $reply .= "<b><u>Intervención ".htmlentities($info['id_intervencion']).", ".$info['tipo_intervencion'].":</u></b>\n";
+            $reply .= "<strong>· Estado:</strong> ".htmlentities($info['estado'])."\n";
+            $reply .= "<strong>· Iniciada:</strong> ".date( 'd-m-Y', strtotime( $info['fecha_finalizacion'] ) ).' '.htmlentities($info['hora_inicio'])."\n";
+            $reply .= "<strong>· Finalizada:</strong> ".date( 'd-m-Y', strtotime( $info['fecha_finalizacion'] ) ).' '.htmlentities($info['hora_fin'])."\n";
+            $reply .= "<strong>· Centro de trabajo:</strong> ".htmlentities($info['centro_trabajo']).' (<a href="https://maps.google.com/?q='.urlencode($info['direccion']).'" target="_blank">Dirección</a>)'."\n";
+            $reply .= "<strong>· Técnico:</strong> ".htmlentities($info['tecnico'])."\n";
+            $reply .= '<strong>· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/parte-digital-'.$id.'.pdf">Parte de trabajo</a>'."\n";
+            $reply .= '<strong>· <a href="https://app.brainhardware.es/resources/dropbox-files/BRAIN-APP/Intervenciones/'.$id.'%20('.$info['_intervenciones_id'].')/archivos-'.$id.'.zip">Archivos de la intervención</a>'."\n";
             $reply .= "";
             $this -> sendMessage( $reply );
         } else {
