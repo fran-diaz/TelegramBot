@@ -18,7 +18,7 @@ trait info {
         
         if( $info ){
             $reply = "";
-            $reply .= "<b><u>Intervención ".htmlentities($info['id_intervencion']).", ".$info['tipo_intervencion'].":</u></b>\n";
+            $reply .= "<b><u>INTERVENCIÓN ".htmlentities($info['id_intervencion'])." (".$info['tipo_intervencion']."):</u></b>\n";
             $reply .= "<strong>· Estado:</strong> ".htmlentities($info['estado'])."\n";
             $reply .= "<strong>· Iniciada:</strong> ".date( 'd-m-Y', strtotime( $info['fecha_finalizacion'] ) ).' '.htmlentities($info['hora_inicio'])."\n";
             $reply .= "<strong>· Finalizada:</strong> ".date( 'd-m-Y', strtotime( $info['fecha_finalizacion'] ) ).' '.htmlentities($info['hora_fin'])."\n";
