@@ -111,11 +111,11 @@ class TelegramBot {
             
             $data_string = json_encode($json);*/
             $data_string = $json;
-            $this -> log( 'data_string', var_export(exec('whoami'),true)."\n",  FILE_APPEND );
+            /*$this -> log( 'data_string', var_export(exec('whoami'),true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export(is_readable($json['photo']),true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export(file_exists($json['photo']),true)."\n",  FILE_APPEND );
             $this -> log( 'data_string', var_export(realpath($json['photo']),true)."\n",  FILE_APPEND );
-            $this -> log( 'data_string', var_export($data_string,true)."\n",  FILE_APPEND );
+            $this -> log( 'data_string', var_export($data_string,true)."\n",  FILE_APPEND );*/
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
         
