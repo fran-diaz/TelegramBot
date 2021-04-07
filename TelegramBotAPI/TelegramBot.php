@@ -88,15 +88,6 @@ class TelegramBot {
     }
 
     private function rest( string $method, array $json ) {
-        /*$sendto = API_URL . $method ."?".http_build_query($json, null, '&',PHP_QUERY_RFC3986);
-        $this -> log( __DIR__ . '/../../sendto', var_export($sendto,true)."\n"  );
-
-        $result = file_get_contents($sendto);
-        $this -> log( __DIR__ . '/../../result', var_export($result,true)."\n"  );
-        return $result;*/
-        /**
-         * OLD METHOD
-         */
         $ch = curl_init();
         $result = null;
         curl_setopt( $ch, CURLOPT_URL, API_URL . $method ); 
@@ -111,17 +102,14 @@ class TelegramBot {
             
             $data_string = json_encode($json);*/
             $data_string = $json;
-            /*$this -> log( 'data_string', var_export(exec('whoami'),true)."\n",  FILE_APPEND );
-            $this -> log( 'data_string', var_export(is_readable($json['photo']),true)."\n",  FILE_APPEND );
-            $this -> log( 'data_string', var_export(file_exists($json['photo']),true)."\n",  FILE_APPEND );
-            $this -> log( 'data_string', var_export(realpath($json['photo']),true)."\n",  FILE_APPEND );
-            $this -> log( 'data_string', var_export($data_string,true)."\n",  FILE_APPEND );*/
+            $this -> log( 'request', json_encode($json)."\n", FILE_APPEND  );
+
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string );
             curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
         
             $result = curl_exec( $ch );
             $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ( $status != 201 ) {
+            if ( $status != 200 ) {
                 $this -> log( 'curl-error', "Error: failed with status $status, response $result, curl_error " . curl_error($ch) . ", curl_errno " . curl_errno($ch)."\n", FILE_APPEND  );
             }
         } catch(Exception $e) {
