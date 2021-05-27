@@ -36,10 +36,12 @@ trait new_user {
 
         if( empty( $aux ) ) {
             $this -> db -> query('SET FOREIGN_KEY_CHECKS=0; CREATE TABLE `TelegramBot__users` ( '."
-                `TelegramBot__users_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
-                `user` varchar(255) COLLATE utf8_spanish2_ci DEFAULT NULL,
-                `chat_id` int(11) unsigned NOT NULL,
-                PRIMARY KEY (`TelegramBot__users_id`)
+                `TelegramBot__users_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'column:no,form:no',
+                  `user` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
+                  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
+                  `chat_id` int(11) UNSIGNED NOT NULL,
+                  `active` bit(1) NULL DEFAULT b'0',
+                  PRIMARY KEY (`TelegramBot__users_id`) USING BTREE
                 ".' ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;SET FOREIGN_KEY_CHECKS=1;') -> fetchAll();
         }
 
