@@ -17,6 +17,7 @@ trait new_user {
             } else {
                 $values['chat_id'] = $this -> input["message"]["from"]["id"];
                 $values['user'] = $this -> input["message"]["from"]["first_name"];
+                $values['name'] = $this -> input["message"]["from"]["first_name"];
             
                 return $this -> db -> insert( 'TelegramBot__users', $values );
             }
