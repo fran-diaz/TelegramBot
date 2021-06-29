@@ -2,10 +2,10 @@
 namespace TelegramBotAPI;
 
 // Required files
-require(  __DIR__ . '/../../telegram_config.php' );
+require_once(  __DIR__ . '/../../telegram_config.php' );
 
 foreach ( rglob( __DIR__ . "/*/*.php" ) as $filename ) {
-    require( $filename );
+    require_once( $filename );
 }
 
 class TelegramBot {
@@ -72,9 +72,7 @@ class TelegramBot {
             $this -> msg_id = $this -> input["message"]["message_id"];
             $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
             
-            if ($this -> new_user() === false ){
-                $this -> sendMessage("No puedo ayudarte, disculpa las molestias." );
-            }
+            $this -> new_user();
 
             switch ( $command[0] ) {
                 case 'info':
