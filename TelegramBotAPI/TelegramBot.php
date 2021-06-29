@@ -72,7 +72,9 @@ class TelegramBot {
             $this -> msg_id = $this -> input["message"]["message_id"];
             $command = explode( ' ', substr($this -> input["message"]["text"], 1 ) );
             
-            $this -> new_user();
+            if ($this -> new_user() === false ){
+                $this -> sendMessage("No puedo ayudarte, disculpa las molestias." );
+            }
 
             switch ( $command[0] ) {
                 case 'info':
