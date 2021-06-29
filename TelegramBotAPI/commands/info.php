@@ -10,7 +10,10 @@ trait info {
 
         $user_info = $this -> db -> get('TelegramBot__users','*',['user' => $this -> input["message"]["from"]["first_name"]]);
         if( ! $user_info ){
-            $this -> sendMessage( 'No nos consta que estés registrado.' );
+            $this -> sendMessage( 'No me consta que estés registrado.' );
+            return false;
+        } elseif( $user_info['active'] === '0'){
+            $this -> sendMessage( 'Tu nivel de autorización no te permite solicitar esa información.' );
             return false;
         }
 
@@ -29,7 +32,7 @@ trait info {
             $reply .= "";
             $this -> sendMessage( $reply );
         } else {
-            $this -> sendMessage( 'No estas autorizado a recibir esta información.' );
+            $this -> sendMessage( 'Tu nivel de autorización no te permite solicitar esa información.' );
             return false;
         }
     }
